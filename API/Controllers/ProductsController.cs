@@ -30,18 +30,16 @@ namespace API.Controllers
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>>  GetProduct(int id){
-            var product = await _productsRepo.GetByIdAsync(id);
-            return Ok(product);
+            var spec = new ProductsWithTypesAndBrandsSpecification(id);
+            return await _productsRepo.GetEntityWithSpec(spec);            
         }
-        // [HttpGet("brands")]
-        // public async Task<ActionResult<List<ProductBrand>>> GetBrands(){
-        //     var products = await _productsRepo.GetProductBrandsAsync();
-        //     return Ok(products);
-        // }
-        // [HttpGet("types")]
-        // public async Task<ActionResult<List<ProductType>>> GetTypes(){
-        //     var products = await _productsRepo.GetProductTypesAsync();
-        //     return Ok(products);
-        // }
+        [HttpGet("brands")]
+        public async Task<ActionResult<List<ProductBrand>>> GetBrands(){
+            return Ok(await _productBrandRepo.ListAllAsync());            
+        }
+        [HttpGet("types")]
+        public async Task<ActionResult<List<ProductType>>> GetTypes(){
+            return Ok (await _productTypeRepo.ListAllAsync());
+        }
     } 
-}
+} 
