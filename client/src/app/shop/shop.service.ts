@@ -15,7 +15,7 @@ export class ShopService {
 
   getProducts(brandId?: number, typeId?: number, sort?: string) {
     let params = new HttpParams() 
-    params = params.append('pageSize', '50') //?pageSize=50
+    //params = params.append('pageSize', '50') //?pageSize=50
     if (brandId) {
       params = params.append('brandId', brandId.toString())
     }
